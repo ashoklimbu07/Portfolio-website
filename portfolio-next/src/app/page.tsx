@@ -4,6 +4,7 @@ import {
   ContactSection,
   Footer,
   HeroSection,
+  JourneySection,
   ProjectsSection,
   SkillsSection,
   StatsBar,
@@ -17,6 +18,7 @@ export default function Home() {
         <HeroSection />
         <StatsBar />
         <AboutSection />
+        <JourneySection />
         <SkillsSection />
         <ProjectsSection />
         <ContactSection />

@@ -1,4 +1,8 @@
-import { aboutCards, interests, projects, skills, stats } from "./data";
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { aboutCards, education, experience, interests, projects, skills, stats } from "./data";
+import Image from "next/image";
 import {
   Bot,
   Clapperboard,
@@ -28,7 +32,80 @@ const aboutIcons = {
   sparkles: Sparkles,
 } as const;
 
+function AnimatedStatValue({ value, start }: { value: string; start: boolean }) {
+  const parsed = useMemo(() => {
+    const numericPart = Number.parseInt(value, 10);
+    if (Number.isNaN(numericPart)) {
+      return null;
+    }
+
+    const suffix = value.replace(String(numericPart), "");
+    return { numericPart, suffix };
+  }, [value]);
+
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!parsed || !start) return;
+
+    let frameId = 0;
+    const durationMs = 2000;
+    const startTime = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - startTime) / durationMs, 1);
+      // easeInOutCubic gives a softer start/end for smoother counting.
+      const easedProgress =
+        progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      const nextValue = Math.max(1, Math.round(parsed.numericPart * easedProgress));
+      setDisplayValue(nextValue);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [parsed, start]);
+
+  if (!parsed) {
+    return <>{value}</>;
+  }
+
+  return (
+    <>
+      {displayValue}
+      {parsed.suffix}
+    </>
+  );
+}
+
 export function HeroSection() {
+  const profilePhotoPath = "/images/profile/hari-profile.jpg";
+  const heroBadges = [
+    {
+      label: "Full Stack Dev",
+      Icon: Code2,
+      className: "right-0 top-6 sm:-right-4 sm:top-8 [animation-delay:0ms]",
+    },
+    {
+      label: "AI Automation",
+      Icon: Bot,
+      className: "right-0 bottom-14 sm:-right-6 sm:bottom-20 [animation-delay:700ms]",
+    },
+    {
+      label: "Video Editor",
+      Icon: Clapperboard,
+      className: "-left-1 bottom-2 sm:-left-6 sm:bottom-8 [animation-delay:1400ms]",
+    },
+    {
+      label: "App Developer",
+      Icon: Smartphone,
+      className: "-left-2 top-14 sm:-left-8 sm:top-20 [animation-delay:2100ms]",
+    },
+  ];
+
   return (
     <section id="hero" className="mx-auto grid min-h-screen w-full max-w-6xl items-center gap-12 px-5 pb-16 pt-28 md:grid-cols-2 md:px-8">
       <div className="fade-in-up">
@@ -43,10 +120,9 @@ export function HeroSection() {
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-8 text-[#8a85aa]">
           <strong className="font-medium text-white">App & Full Stack Developer</strong> - AI Automation
-          Enthusiast - Video Editor
+          Enthusiast
           <br />
-          <br />I build apps, automate workflows, and explore the edges of AI - from crafting slick
-          digital products to teaching machines to do the boring stuff.
+          <br />I build full-stack apps, automate the boring stuff with AI, and create content that brings ideas to life.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">
           <a href="#projects" className="rounded-lg border border-[#7c6af7] bg-[#7c6af7] px-8 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-[#a89cf8]">
@@ -63,25 +139,24 @@ export function HeroSection() {
           <div className="absolute -inset-3 animate-[spin_20s_linear_infinite] rounded-full border border-[#7c6af7]/40">
             <span className="absolute left-1/2 top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-[#7c6af7]" />
           </div>
-          <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-[#7c6af7]/30 bg-gradient-to-br from-[#7c6af7]/35 to-[#a89cf8]/15 font-heading text-6xl font-extrabold text-[#a89cf8]/70 sm:text-7xl">
-            HSL
+          <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-[#7c6af7]/30 bg-gradient-to-br from-[#7c6af7]/20 to-[#a89cf8]/10">
+            <Image
+              src={profilePhotoPath}
+              alt="Hari Shankar Limbu profile photo"
+              fill
+              priority
+              className="object-cover"
+            />
           </div>
-          <span className="absolute -right-4 top-8 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
-            <Code2 size={14} className="text-[#a89cf8]" />
-            Full Stack Dev
-          </span>
-          <span className="absolute -right-6 bottom-20 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
-            <Bot size={14} className="text-[#a89cf8]" />
-            AI Automation
-          </span>
-          <span className="absolute -left-6 bottom-8 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
-            <Clapperboard size={14} className="text-[#a89cf8]" />
-            Video Editor
-          </span>
-          <span className="absolute -left-8 top-20 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
-            <Smartphone size={14} className="text-[#a89cf8]" />
-            App Developer
-          </span>
+          {heroBadges.map(({ label, Icon, className }) => (
+            <span
+              key={label}
+              className={`absolute inline-flex items-center gap-1.5 rounded-md border border-[#7c6af7]/30 bg-[#18181f]/95 px-2.5 py-1 text-[10px] font-medium text-white shadow-[0_0_0_1px_rgba(124,106,247,0.15)] backdrop-blur-sm transition-transform duration-500 will-change-transform sm:gap-2 sm:px-3 sm:text-xs animate-[floatTag_5.5s_ease-in-out_infinite] ${className}`}
+            >
+              <Icon size={13} className="text-[#a89cf8] sm:h-[14px] sm:w-[14px]" />
+              {label}
+            </span>
+          ))}
         </div>
       </div>
     </section>
@@ -89,12 +164,40 @@ export function HeroSection() {
 }
 
 export function StatsBar() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || shouldAnimate) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldAnimate(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [shouldAnimate]);
+
   return (
-    <section className="border-y border-[#7c6af7]/20 bg-[#111118] px-5 py-8 md:px-8">
+    <section ref={sectionRef} className="border-y border-[#7c6af7]/20 bg-[#111118] px-5 py-8 md:px-8">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-y-6 md:grid-cols-4">
         {stats.map((stat, index) => (
           <div key={stat.label} className={`text-center ${index < 3 ? "md:border-r md:border-white/10" : ""}`}>
-            <p className="font-heading text-4xl font-extrabold tracking-tight text-[#a89cf8]">{stat.value}</p>
+            <p className="font-heading text-4xl font-extrabold tracking-tight text-[#a89cf8]">
+              {stat.label === "Projects Built" || stat.label === "AI Automations" ? (
+                <AnimatedStatValue value={stat.value} start={shouldAnimate} />
+              ) : (
+                stat.value
+              )}
+            </p>
             <p className="mt-1 text-xs uppercase tracking-[0.15em] text-[#8a85aa]">{stat.label}</p>
           </div>
         ))}
@@ -108,7 +211,7 @@ export function AboutSection() {
     <section id="about" className="mx-auto w-full max-w-6xl px-5 py-24 md:px-8">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
         <div className="fade-in-up">
-          <p className="section-tag">About Me</p>
+          <p className="section-tag">/about me</p>
           <h2 className="section-title">Developer by day, creator by night</h2>
           <p className="copy">Hey! I&apos;m <strong className="text-white">Hari Shankar Limbu</strong>, an app and full stack developer based in Nepal. I love building things that are fast, functional, and just a little bit smart.</p>
           <p className="copy">My sweet spot is at the intersection of <strong className="text-white">software development and AI automation</strong> - designing systems that do not just work but actually think.</p>
@@ -171,6 +274,45 @@ export function SkillsSection() {
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function JourneySection() {
+  return (
+    <section id="journey" className="mx-auto w-full max-w-6xl px-5 py-24 md:px-8">
+      <header className="fade-in-up mb-12 text-center">
+        <p className="section-tag">Journey</p>
+        <h2 className="section-title">Education & Experience</h2>
+      </header>
+      <div className="space-y-14">
+        <div className="fade-in-up">
+          <h3 className="font-heading text-2xl font-semibold text-white">Education</h3>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {education.map((item) => (
+              <article key={`${item.school}-${item.period}`} className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-[#7c6af7]/50">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#a89cf8]">{item.period}</p>
+                <h4 className="mt-2 font-heading text-lg font-semibold text-white">{item.degree}</h4>
+                <p className="mt-1 text-sm font-medium text-[#c9c5e8]">{item.school}</p>
+                <p className="mt-2 text-sm leading-7 text-[#8a85aa]">{item.details}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="fade-in-up [animation-delay:120ms]">
+          <h3 className="font-heading text-2xl font-semibold text-white">Experience</h3>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {experience.map((item) => (
+              <article key={`${item.company}-${item.period}`} className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-[#7c6af7]/50">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#a89cf8]">{item.period}</p>
+                <h4 className="mt-2 font-heading text-lg font-semibold text-white">{item.role}</h4>
+                <p className="mt-1 text-sm font-medium text-[#c9c5e8]">{item.company}</p>
+                <p className="mt-2 text-sm leading-7 text-[#8a85aa]">{item.details}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
