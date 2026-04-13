@@ -25,12 +25,6 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
-            className="hidden rounded-md bg-[#7c6af7] px-5 py-2 text-sm font-medium text-white transition hover:bg-[#a89cf8] md:inline-flex"
-          >
-            Hire Me
-          </a>
           <button
             onClick={() => setIsOpen(true)}
             className="inline-flex flex-col gap-1.5 p-1 md:hidden"

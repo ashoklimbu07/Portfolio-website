@@ -1,4 +1,32 @@
-import { aboutCards, interests, projects, services, skills, stats } from "./data";
+import { aboutCards, interests, projects, skills, stats } from "./data";
+import {
+  Bot,
+  Clapperboard,
+  Code2,
+  Database,
+  Globe,
+  Heart,
+  Settings,
+  Smartphone,
+  Sparkles,
+  Wrench,
+} from "lucide-react";
+
+const skillIcons = {
+  smartphone: Smartphone,
+  globe: Globe,
+  settings: Settings,
+  database: Database,
+  bot: Bot,
+  clapperboard: Clapperboard,
+} as const;
+
+const aboutIcons = {
+  wrench: Wrench,
+  bot: Bot,
+  clapperboard: Clapperboard,
+  sparkles: Sparkles,
+} as const;
 
 export function HeroSection() {
   return (
@@ -6,7 +34,7 @@ export function HeroSection() {
       <div className="fade-in-up">
         <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#7c6af7]/40 bg-[#7c6af7]/15 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-[#a89cf8]">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#7c6af7]" />
-          Available for work
+          Hello, it's me
         </div>
         <h1 className="font-heading text-5xl font-extrabold leading-[0.95] tracking-tight sm:text-7xl">
           Hari Shankar
@@ -38,17 +66,21 @@ export function HeroSection() {
           <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-[#7c6af7]/30 bg-gradient-to-br from-[#7c6af7]/35 to-[#a89cf8]/15 font-heading text-6xl font-extrabold text-[#a89cf8]/70 sm:text-7xl">
             HSL
           </div>
-          <span className="absolute -right-4 top-8 hidden rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:block">
-            ⚡ Full Stack Dev
+          <span className="absolute -right-4 top-8 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
+            <Code2 size={14} className="text-[#a89cf8]" />
+            Full Stack Dev
           </span>
-          <span className="absolute -right-6 bottom-20 hidden rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:block">
-            🤖 AI Automation
+          <span className="absolute -right-6 bottom-20 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
+            <Bot size={14} className="text-[#a89cf8]" />
+            AI Automation
           </span>
-          <span className="absolute -left-6 bottom-8 hidden rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:block">
-            🎬 Video Editor
+          <span className="absolute -left-6 bottom-8 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
+            <Clapperboard size={14} className="text-[#a89cf8]" />
+            Video Editor
           </span>
-          <span className="absolute -left-8 top-20 hidden rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:block">
-            📱 App Developer
+          <span className="absolute -left-8 top-20 hidden items-center gap-2 rounded-md border border-[#7c6af7]/30 bg-[#18181f] px-3 py-1 text-xs font-medium text-white sm:inline-flex">
+            <Smartphone size={14} className="text-[#a89cf8]" />
+            App Developer
           </span>
         </div>
       </div>
@@ -93,7 +125,12 @@ export function AboutSection() {
           {aboutCards.map((card) => (
             <article key={card.title} className="rounded-xl border border-white/10 bg-white/5 p-5 transition hover:border-[#7c6af7]/50 hover:bg-[#7c6af7]/8">
               <div className="flex gap-4">
-                <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-[#7c6af7]/20">{card.icon}</div>
+                <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-[#7c6af7]/20">
+                  {(() => {
+                    const Icon = aboutIcons[card.icon as keyof typeof aboutIcons];
+                    return <Icon size={20} className="text-[#a89cf8]" />;
+                  })()}
+                </div>
                 <div>
                   <h3 className="font-heading text-base font-semibold">{card.title}</h3>
                   <p className="mt-1 text-sm leading-7 text-[#8a85aa]">{card.description}</p>
@@ -118,7 +155,12 @@ export function SkillsSection() {
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {skills.map((skill) => (
             <article key={skill.title} className="fade-in-up rounded-2xl border border-white/10 bg-white/5 p-7 transition hover:-translate-y-1 hover:border-[#7c6af7]/50">
-              <div className="text-3xl">{skill.icon}</div>
+              <div className="text-3xl">
+                {(() => {
+                  const Icon = skillIcons[skill.icon as keyof typeof skillIcons];
+                  return <Icon size={28} className="text-[#a89cf8]" />;
+                })()}
+              </div>
               <h3 className="mt-3 font-heading text-lg font-semibold">{skill.title}</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {skill.items.map((item) => (
@@ -167,28 +209,6 @@ export function ProjectsSection() {
   );
 }
 
-export function ServicesSection() {
-  return (
-    <section id="services" className="bg-[#111118] px-5 py-24 md:px-8">
-      <div className="mx-auto w-full max-w-6xl">
-        <header className="fade-in-up">
-          <p className="section-tag">What I offer</p>
-          <h2 className="section-title">Services</h2>
-        </header>
-        <div className="mt-12 grid gap-5 lg:grid-cols-2">
-          {services.map((service) => (
-            <article key={service.id} className="fade-in-up rounded-2xl border border-white/10 bg-white/5 p-8 transition hover:border-[#7c6af7]/50 hover:bg-[#7c6af7]/8">
-              <p className="font-heading text-6xl font-extrabold leading-none tracking-tight text-[#7c6af7]/20">{service.id}</p>
-              <h3 className="mt-4 font-heading text-xl font-bold">{service.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-[#8a85aa]">{service.description}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function ContactSection() {
   return (
     <section id="contact" className="mx-auto w-full max-w-4xl px-5 py-24 text-center md:px-8">
@@ -221,7 +241,10 @@ export function ContactSection() {
 export function Footer() {
   return (
     <footer className="border-t border-white/10 px-5 py-8 text-center text-sm text-[#8a85aa]">
-      Designed & built with ❤️ by <span className="text-[#7c6af7]">Hari Shankar Limbu</span> · &copy; 2025
+      <span className="inline-flex items-center gap-1">
+        Designed & built with <Heart size={14} className="text-[#a89cf8]" /> by
+      </span>{" "}
+      <span className="text-[#7c6af7]">Hari Shankar Limbu</span> · &copy; 2025
     </footer>
   );
 }

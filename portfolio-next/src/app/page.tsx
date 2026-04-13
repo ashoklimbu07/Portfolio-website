@@ -5,7 +5,6 @@ import {
   Footer,
   HeroSection,
   ProjectsSection,
-  ServicesSection,
   SkillsSection,
   StatsBar,
 } from "@/components/portfolio/PortfolioSections";
@@ -20,7 +19,6 @@ export default function Home() {
         <AboutSection />
         <SkillsSection />
         <ProjectsSection />
-        <ServicesSection />
         <ContactSection />
       </main>
       <Footer />

@@ -25,8 +25,7 @@ body::before {
 }
 
 main,
-footer,
-nav {
+footer {
   position: relative;
   z-index: 1;
 }
