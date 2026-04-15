@@ -22,11 +22,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeInitializer = `
+    (function () {
+      try {
+        var storedTheme = localStorage.getItem("theme");
+        var shouldUseDark = storedTheme ? storedTheme === "dark" : true;
+        document.documentElement.classList.toggle("dark", shouldUseDark);
+      } catch (e) {
+        document.documentElement.classList.add("dark");
+      }
+    })();
+  `;
+
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${syne.variable} h-full scroll-smooth antialiased dark`}
+      className={`${dmSans.variable} ${syne.variable} h-full scroll-smooth antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
