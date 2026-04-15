@@ -9,7 +9,7 @@ export const navLinks = [
 export const contactDetails = {
   email: "limashok21@gmail.com",
   phone: "+977 9816374005",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/HARI_SHANKAR_LIMBU_2026CV.pdf",
 } as const;
 
 /** File must live at `public/images/profile/` (same path without `/public`). */
