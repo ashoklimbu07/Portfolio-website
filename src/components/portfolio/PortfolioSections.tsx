@@ -175,24 +175,24 @@ export function HeroSection() {
 
       <div className="scroll-hero-media fade-in-up flex justify-center md:justify-end [animation-delay:160ms]">
         <div className="scroll-avatar-wrap relative h-64 w-64 sm:h-80 sm:w-80">
-          <div className="absolute -inset-3 animate-[spin_20s_linear_infinite] rounded-full border border-[#7c6af7]/40">
-            <span className="absolute left-1/2 top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-[#7c6af7]" />
+          <div className="absolute -inset-3 z-20 animate-[spin_28s_linear_infinite] rounded-full border border-[#7c6af7]/40">
+            <span className="absolute left-1/2 top-2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-[#7c6af7] shadow-[0_0_0_3px_rgba(124,106,247,0.25)]" />
           </div>
-          <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-[#7c6af7]/30 bg-gradient-to-br from-[#7c6af7]/20 to-[#a89cf8]/10">
+          <div className="relative z-10 h-full w-full overflow-hidden rounded-full border-2 border-[#7c6af7]/30 bg-gradient-to-br from-[#7c6af7]/20 to-[#a89cf8]/10">
             <Image
               src={profilePhotoUrl}
               alt="Hari Shankar Limbu"
               fill
               priority
-              quality={90}
-              sizes="profile-photo.png"
+              quality={80}
+              sizes="(max-width: 640px) 256px, 320px"
               className="pointer-events-none select-none object-cover object-center width h-full"
             />
           </div>
           {heroBadges.map(({ label, Icon, className }) => (
             <span
               key={label}
-            className={`scroll-hero-badge absolute inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white/95 px-2.5 py-1 text-[10px] font-medium text-slate-800 shadow-sm backdrop-blur-sm transition-transform duration-500 will-change-transform dark:border-[#7c6af7]/30 dark:bg-[#18181f]/95 dark:text-white dark:shadow-[0_0_0_1px_rgba(124,106,247,0.15)] sm:gap-2 sm:px-3 sm:text-xs animate-[floatTag_5.5s_ease-in-out_infinite] ${className}`}
+            className={`scroll-hero-badge absolute z-30 inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white/95 px-2.5 py-1 text-[10px] font-medium text-slate-800 shadow-sm backdrop-blur-sm transition-transform duration-500 will-change-transform dark:border-[#7c6af7]/30 dark:bg-[#18181f]/95 dark:text-white dark:shadow-[0_0_0_1px_rgba(124,106,247,0.15)] sm:gap-2 sm:px-3 sm:text-xs animate-[floatTag_5.5s_ease-in-out_infinite] ${className}`}
             >
               <Icon size={13} className="text-[#a89cf8] sm:h-[14px] sm:w-[14px]" />
               {label}
