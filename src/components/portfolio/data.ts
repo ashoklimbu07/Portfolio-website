@@ -13,7 +13,7 @@ export const contactDetails = {
 } as const;
 
 /** File must live at `public/images/profile/` (same path without `/public`). */
-export const profilePhotoUrl = "/images/profile/pp2.jpeg" as const;
+export const profilePhotoUrl = "public/images/profile/pp2.jpeg" as const;
 
 export const stats = [
   { value: "2+", label: "Years Experience" },
