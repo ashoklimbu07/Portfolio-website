@@ -6,6 +6,15 @@ export const navLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
+export const contactDetails = {
+  email: "limashok21@gmail.com",
+  phone: "+977 9816374005",
+  resumeUrl: "/resume.pdf",
+} as const;
+
+/** File must live at `public/images/profile/` (same path without `/public`). */
+export const profilePhotoUrl = "/images/profile/pp2.jpeg" as const;
+
 export const stats = [
   { value: "2+", label: "Years Experience" },
   { value: "20+", label: "Projects Built" },
@@ -57,32 +66,20 @@ export const skills = [
 
 export const projects = [
   {
-    label: "AI Automation",
-    title: "AutoFlow - AI Workflow Engine",
+    label: "Content Automation",
+    title: "BrollAi-Personal content creation Toolkit",
     description:
-      "A no-code AI automation platform that lets users build multi-step agent workflows visually. Integrates with 50+ services and uses LLMs to handle decision-making nodes.",
-    tech: ["Next.js", "LangChain", "n8n", "PostgreSQL"],
+      "Full stack application for personal content creation, using AI to generate content and automate the process also features script anlayzer , prompt cleaner , manual script and story board generator, etc..",
+    tech: ["typescript", "API integration", "MongoDB"],
+    projectUrl: "https://github.com/ashoklimbu07/Brollai",
   },
   {
     label: "Mobile App",
-    title: "NepConnect - Community App",
+    title: "Okhati - Medication reminder App",
     description:
-      "A Flutter-based community app for Nepali diaspora to stay connected, share resources, and find local events. Features real-time chat and AI-powered content recommendations.",
-    tech: ["Flutter", "Firebase", "Dart", "OpenAI"],
-  },
-  {
-    label: "Full Stack",
-    title: "DevDash - Developer Analytics",
-    description:
-      "A developer productivity dashboard that aggregates GitHub activity, task trackers, and coding stats into one smart view - with weekly AI-generated insights and reports.",
-    tech: ["React", "Node.js", "GitHub API", "GPT-4"],
-  },
-  {
-    label: "AI Content",
-    title: "AIReel - Automated Video Pipeline",
-    description:
-      "A personal project automating the creation of short-form AI explainer videos - from script writing with GPT to voiceover generation and auto-edit using Premiere Pro scripts.",
-    tech: ["Python", "OpenAI", "ElevenLabs", "Premiere Pro"],
+      "A react native based medication reminder app for elderly people(Nepali Audience), to help them remember their medications and avoid missing them , also features medication reminder notifications and medication history tracking for caregivers and family members",
+    tech: ["react native", "supabase", "sqlite", "typescript"],
+    statusCta: "In active development",
   },
 ];
 

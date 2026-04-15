@@ -1,6 +1,18 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --scroll-progress: 0;
+  --scroll-offset: 0px;
+  --scroll-speed: 0;
+  --scroll-tilt: 0deg;
+  --hero-progress: 0;
+  --hero-scale: 1;
+}
+
+html.dark {
   --background: #0a0a0f;
   --foreground: #f0eeff;
 }
@@ -20,8 +32,151 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(ellipse 80% 60% at 60% -10%, rgba(124, 106, 247, 0.18) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at -10% 60%, rgba(168, 156, 248, 0.1) 0%, transparent 60%);
+    radial-gradient(ellipse 88% 65% at 58% -12%, rgba(15, 23, 42, 0.1) 0%, transparent 72%),
+    radial-gradient(ellipse 58% 46% at -10% 64%, rgba(15, 23, 42, 0.08) 0%, transparent 64%);
+  transform: translate3d(0, calc(var(--scroll-offset) * -0.65), 0)
+    scale(calc(1.01 + var(--scroll-progress) * 0.1))
+    rotate(calc(var(--scroll-tilt) * 0.7));
+  transition: transform 220ms ease-out, filter 220ms ease-out, opacity 220ms ease-out;
+  will-change: transform, filter, opacity;
+  opacity: 0.92;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 22% 20%, rgba(79, 70, 229, 0.11), transparent 42%),
+    radial-gradient(circle at 78% 72%, rgba(56, 189, 248, 0.09), transparent 44%);
+  mix-blend-mode: multiply;
+  opacity: 0.58;
+  transform: translate3d(0, calc(var(--scroll-offset) * 0.35), 0)
+    rotate(calc(var(--scroll-progress) * 8deg))
+    scale(calc(1.005 + var(--scroll-speed) * 0.06));
+  transition: transform 240ms ease-out, opacity 240ms ease-out;
+  will-change: transform, opacity;
+}
+
+html.dark body::before {
+  background-image:
+    radial-gradient(ellipse 86% 64% at 60% -8%, rgba(124, 106, 247, 0.28) 0%, transparent 74%),
+    radial-gradient(ellipse 56% 44% at -10% 62%, rgba(168, 156, 248, 0.18) 0%, transparent 62%);
+  opacity: 1;
+}
+
+html.dark body::after {
+  background:
+    radial-gradient(circle at 20% 22%, rgba(124, 106, 247, 0.2), transparent 42%),
+    radial-gradient(circle at 82% 78%, rgba(168, 156, 248, 0.16), transparent 45%);
+  mix-blend-mode: screen;
+  opacity: 0.74;
+}
+
+html[data-scroll-dir="down"] body::before {
+  filter: saturate(1.08) brightness(1.03) blur(calc(var(--scroll-speed) * 1.2px));
+}
+
+html[data-scroll-dir="down"] body::after {
+  opacity: calc(0.56 + var(--scroll-speed) * 0.12);
+}
+
+html[data-scroll-dir="up"] body::before {
+  filter: saturate(1.03) brightness(1.01) blur(calc(var(--scroll-speed) * 0.8px));
+}
+
+html[data-scroll-dir="up"] body::after {
+  opacity: calc(0.5 + var(--scroll-speed) * 0.08);
+}
+
+.scroll-hero {
+  transform: scale(var(--hero-scale))
+    translateY(calc(var(--hero-progress) * -20px));
+  transform-origin: top center;
+  transition: transform 180ms linear;
+  will-change: transform;
+}
+
+.scroll-hero-content {
+  transform: translateY(calc(var(--hero-progress) * -8px));
+  transition: transform 180ms linear;
+}
+
+.scroll-hero-media {
+  transform: translateY(calc(var(--hero-progress) * -12px));
+  transition: transform 180ms linear;
+}
+
+.scroll-avatar-wrap {
+  transform: scale(calc(1.01 - var(--hero-progress) * 0.04))
+    rotate(calc(var(--hero-progress) * -1deg));
+  transform-origin: center center;
+  transition: transform 180ms linear;
+}
+
+.scroll-hero-badge {
+  transform: translateY(calc(var(--hero-progress) * -6px))
+    scale(calc(1 - var(--hero-progress) * 0.03));
+  transform-origin: center center;
+  transition: transform 180ms linear;
+}
+
+.scroll-section-fx {
+  --section-progress: 0;
+  --section-scale: 1.01;
+  --section-shift: 4px;
+  --section-fade: 0.96;
+  transform: translate3d(0, var(--section-shift), 0) scale(var(--section-scale));
+  transform-origin: center top;
+  opacity: var(--section-fade);
+  transition: transform 240ms ease-out, opacity 240ms ease-out;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 768px) {
+  .scroll-hero {
+    transform: scale(calc(1 - var(--hero-progress) * 0.04))
+      translateY(calc(var(--hero-progress) * -10px));
+  }
+
+  .scroll-hero-content {
+    transform: translateY(calc(var(--hero-progress) * -5px));
+  }
+
+  .scroll-hero-media {
+    transform: translateY(calc(var(--hero-progress) * -8px));
+  }
+
+  .scroll-hero-badge {
+    transform: translateY(calc(var(--hero-progress) * -4px))
+      scale(calc(1 - var(--hero-progress) * 0.02));
+  }
+
+  .scroll-section-fx {
+    transform: translate3d(0, calc(var(--section-shift) * 0.6), 0)
+      scale(calc(0.995 + var(--section-progress) * 0.01));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    transform: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+  .scroll-hero,
+  .scroll-hero-content,
+  .scroll-hero-media,
+  .scroll-avatar-wrap,
+  .scroll-hero-badge,
+  .scroll-section-fx {
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+  }
 }
 
 main,
@@ -40,7 +195,7 @@ footer {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #7c6af7;
+  color: #4f46e5;
 }
 
 .section-title {
@@ -52,8 +207,12 @@ footer {
 
 .copy {
   margin-top: 1rem;
-  color: #8a85aa;
+  color: #334155;
   line-height: 1.9;
+}
+
+html.dark .copy {
+  color: #8a85aa;
 }
 
 .stroke-text {

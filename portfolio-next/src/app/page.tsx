@@ -9,10 +9,12 @@ import {
   SkillsSection,
   StatsBar,
 } from "@/components/portfolio/PortfolioSections";
+import { ScrollBackgroundFx } from "@/components/portfolio/ScrollBackgroundFx";
 
 export default function Home() {
   return (
-    <div className="bg-[#0a0a0f] text-[#f0eeff]">
+    <div className="text-slate-900 transition-colors dark:text-[#f0eeff]">
+      <ScrollBackgroundFx />
       <Navbar />
       <main>
         <HeroSection />
