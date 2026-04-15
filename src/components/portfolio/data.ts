@@ -12,8 +12,8 @@ export const contactDetails = {
   resumeUrl: "/HARI_SHANKAR_LIMBU_2026CV.pdf",
 } as const;
 
-/** File must live at `public/images/profile/` (same path without `/public`). */
-export const profilePhotoUrl = "public/images/profile/pp2.jpeg" as const;
+/** File must live at `public/images/profile/` and be referenced from site root. */
+export const profilePhotoUrl = "/images/profile/pp2.jpeg" as const;
 
 export const stats = [
   { value: "2+", label: "Years Experience" },

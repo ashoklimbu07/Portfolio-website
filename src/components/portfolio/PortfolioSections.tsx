@@ -184,7 +184,7 @@ export function HeroSection() {
               alt="Hari Shankar Limbu"
               fill
               priority
-              quality={92}
+              quality={90}
               sizes="profile-photo.png"
               className="pointer-events-none select-none object-cover object-center width h-full"
             />
