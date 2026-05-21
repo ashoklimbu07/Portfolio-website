@@ -1,12 +1,14 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navLinks } from "./data";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -14,86 +16,143 @@ export function Navbar() {
     const shouldUseDark = storedTheme ? storedTheme === "dark" : true;
     root.classList.toggle("dark", shouldUseDark);
     setIsDark(shouldUseDark);
+
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
     const root = document.documentElement;
-    const nextIsDark = !isDark;
-    root.classList.toggle("dark", nextIsDark);
-    window.localStorage.setItem("theme", nextIsDark ? "dark" : "light");
-    setIsDark(nextIsDark);
+    const next = !isDark;
+    root.classList.toggle("dark", next);
+    window.localStorage.setItem("theme", next ? "dark" : "light");
+    setIsDark(next);
   };
 
   return (
     <>
-      <nav className="fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur-xl dark:border-white/10 dark:bg-[#0a0a0f]/80">
+      <nav
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? "border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-xl"
+            : "bg-transparent"
+        }`}
+      >
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
-          <a href="#hero" className="font-heading text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            HSL<span className="text-[#7c6af7]">.</span>
+          {/* Logo */}
+          <a
+            href="#hero"
+            className="font-heading text-lg font-bold tracking-tight text-[var(--fg)]"
+          >
+            HSL<span className="text-[var(--accent)]">.</span>
           </a>
-          <div className="hidden items-center gap-3 md:flex">
-            <ul className="flex items-center gap-8">
+
+          {/* Desktop links */}
+          <div className="hidden items-center gap-6 md:flex">
+            <ul className="flex items-center gap-6">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500 transition hover:text-slate-900 dark:text-[#8a85aa] dark:hover:text-white"
-                  >
+                  <a href={link.href} className="nav-link">
                     {link.label}
                   </a>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/video-editing"
+                  className="nav-link"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Video
+                </Link>
+              </li>
             </ul>
+
+            {/* Resume button */}
+            <a
+              href="/HARI_SHANKAR_LIMBU_2026CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-xs"
+            >
+              Resume
+            </a>
+
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/15 dark:bg-white/5 dark:text-[#a89cf8] dark:hover:bg-[#7c6af7]/10"
-              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-              title={isDark ? "Switch to light theme" : "Switch to dark theme"}
+              aria-label="Toggle theme"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={15} /> : <Moon size={15} />}
             </button>
           </div>
+
+          {/* Mobile row */}
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={toggleTheme}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-slate-300 hover:text-slate-900 dark:border-white/15 dark:bg-white/5 dark:text-[#a89cf8] dark:hover:bg-[#7c6af7]/10"
-              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-              title={isDark ? "Switch to light theme" : "Switch to dark theme"}
+              aria-label="Toggle theme"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)]"
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={15} /> : <Moon size={15} />}
             </button>
             <button
               onClick={() => setIsOpen(true)}
-              className="inline-flex flex-col gap-1.5 p-1"
               aria-label="Open menu"
+              className="flex flex-col gap-1.5 p-1"
             >
-              <span className="h-0.5 w-6 rounded bg-slate-900 dark:bg-white" />
-              <span className="h-0.5 w-6 rounded bg-slate-900 dark:bg-white" />
-              <span className="h-0.5 w-6 rounded bg-slate-900 dark:bg-white" />
+              <span className="h-0.5 w-5 rounded bg-[var(--fg)]" />
+              <span className="h-0.5 w-5 rounded bg-[var(--fg)]" />
+              <span className="h-0.5 w-3 rounded bg-[var(--fg)]" />
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile drawer */}
       {isOpen && (
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-8 bg-white/98 backdrop-blur-xl dark:bg-[#0a0a0f]/95 md:hidden">
+        <div className="fixed inset-0 z-[60] flex flex-col bg-[var(--bg)] px-8 pt-24 pb-12 md:hidden">
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute right-6 top-5 text-4xl text-slate-900 dark:text-white"
+            className="absolute right-6 top-5 text-3xl text-[var(--fg-muted)] hover:text-[var(--fg)]"
             aria-label="Close menu"
           >
             &times;
           </button>
-          {navLinks.map((link) => (
+          <ul className="flex flex-col gap-8">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="font-heading text-3xl font-bold text-[var(--fg)] transition hover:text-[var(--accent)]"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/video-editing"
+                onClick={() => setIsOpen(false)}
+                className="font-heading text-3xl font-bold text-[var(--accent)]"
+              >
+                Video
+              </Link>
+            </li>
+          </ul>
+          <div className="mt-auto">
             <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="font-heading text-4xl font-bold text-slate-900 transition hover:text-slate-700 dark:text-white dark:hover:text-[#a89cf8]"
+              href="/HARI_SHANKAR_LIMBU_2026CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary w-full justify-center text-sm"
             >
-              {link.label}
+              Resume
             </a>
-          ))}
+          </div>
         </div>
       )}
     </>

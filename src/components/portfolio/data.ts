@@ -6,6 +6,59 @@ export const navLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
+export const videoEditingWorks = [
+  {
+    category: "Short-Form Content",
+    title: "AI Tech Explainer Reels",
+    description:
+      "Fast-paced, engaging short-form videos explaining AI and tech concepts. Designed for TikTok and Instagram Reels, using motion graphics, captions, and tight cuts to retain viewer attention.",
+    tools: ["Premiere Pro", "After Effects", "CapCut"],
+    type: "reel",
+  },
+  {
+    category: "Faceless Content",
+    title: "Faceless TikTok & Facebook Automation",
+    description:
+      "Managing and creating content for multiple faceless accounts across TikTok and Facebook. AI-assisted scripts, voiceovers, and automated posting pipelines keep channels active and growing.",
+    tools: ["CapCut", "ElevenLabs", "n8n"],
+    type: "faceless",
+  },
+  {
+    category: "AI Video Production",
+    title: "AI Brand Videos for 360 Automation Agency",
+    description:
+      "Producing high-quality AI-generated videos for businesses and brands at 360 Automation Agency. Full pipeline from script to final render — tailored to client's audience and brand voice.",
+    tools: ["Premiere Pro", "After Effects", "Runway ML", "ElevenLabs"],
+    type: "brand",
+  },
+  {
+    category: "Long-Form",
+    title: "Tech & Dev Explainer Videos",
+    description:
+      "In-depth explainers covering development topics, AI workflows, and system design. Structured storytelling with screen recordings, b-roll, and color grading for a polished final product.",
+    tools: ["Premiere Pro", "After Effects", "Canva"],
+    type: "explainer",
+  },
+];
+
+export const videoEditingSkills = [
+  { label: "Adobe Premiere Pro", level: 90 },
+  { label: "After Effects", level: 80 },
+  { label: "CapCut", level: 95 },
+  { label: "Canva", level: 85 },
+  { label: "Color Grading", level: 75 },
+  { label: "Motion Graphics", level: 72 },
+  { label: "AI Voiceover (ElevenLabs)", level: 88 },
+  { label: "Short-Form Editing", level: 95 },
+];
+
+export const videoEditingStats = [
+  { value: "3+", label: "Years Editing" },
+  { value: "50+", label: "Videos Produced" },
+  { value: "5+", label: "Active Channels" },
+  { value: "100%", label: "Client Satisfaction" },
+];
+
 export const contactDetails = {
   email: "limashok21@gmail.com",
   phone: "+977 9816374005",
