@@ -11,52 +11,70 @@ export const videoEditingWorks = [
     category: "Short-Form Content",
     title: "AI Tech Explainer Reels",
     description:
-      "Fast-paced, engaging short-form videos explaining AI and tech concepts. Designed for TikTok and Instagram Reels, using motion graphics, captions, and tight cuts to retain viewer attention.",
-    tools: ["Premiere Pro", "After Effects", "CapCut"],
+      "Fast-paced, engaging short-form videos explaining AI and tech concepts for TikTok and Instagram Reels. Built with AI-generated visuals, tight cuts, and platform-tuned hooks that consistently drive high retention.",
+    tools: ["CapCut", "ElevenLabs", "Sora", "Leonardo AI"],
     type: "reel",
   },
   {
     category: "Faceless Content",
-    title: "Faceless TikTok & Facebook Automation",
+    title: "Faceless Social Media Channels — 1M+ Followers",
     description:
-      "Managing and creating content for multiple faceless accounts across TikTok and Facebook. AI-assisted scripts, voiceovers, and automated posting pipelines keep channels active and growing.",
-    tools: ["CapCut", "ElevenLabs", "n8n"],
+      "Grew multiple faceless accounts across TikTok and Facebook to significant followings using 100% AI-generated content. Handled everything from scripting and voiceover synthesis to automated bulk posting pipelines via n8n.",
+    tools: ["CapCut", "ElevenLabs", "n8n", "ChatGPT", "Midjourney"],
     type: "faceless",
   },
   {
-    category: "AI Video Production",
-    title: "AI Brand Videos for 360 Automation Agency",
+    category: "AI Brand Videos",
+    title: "Client AI Video Production — 360 Automation Agency",
     description:
-      "Producing high-quality AI-generated videos for businesses and brands at 360 Automation Agency. Full pipeline from script to final render — tailored to client's audience and brand voice.",
-    tools: ["Premiere Pro", "After Effects", "Runway ML", "ElevenLabs"],
+      "Delivered high-quality AI-generated promotional and marketing videos for business clients under 360 Automation Agency. Full pipeline from brief to final render — AI avatars, voice synthesis, lip-sync, and brand-consistent visual identity.",
+    tools: ["HeyGen", "ElevenLabs", "Runway", "CapCut", "Leonardo AI"],
+    type: "brand",
+  },
+  {
+    category: "AI Avatar & Voice",
+    title: "AI Avatar Spokesperson Videos",
+    description:
+      "Produced realistic AI avatar videos using HeyGen and ElevenLabs for e-learning and commercial clients. Maintained consistent character identity across entire course and campaign series.",
+    tools: ["HeyGen", "ElevenLabs", "Midjourney", "CapCut"],
+    type: "explainer",
+  },
+  {
+    category: "Automation Toolkit",
+    title: "BrollAI — Content Automation Platform",
+    description:
+      "Built and deployed BrollAI, a personal content automation toolkit enabling clients to accelerate AI content workflows. Features script analysis, prompt cleaning, storyboard generation, and bulk B-roll production.",
+    tools: ["n8n", "ChatGPT", "Leonardo AI", "Sora", "Flow"],
     type: "brand",
   },
   {
     category: "Long-Form",
-    title: "Tech & Dev Explainer Videos",
+    title: "E-Learning & Tech Explainer Videos",
     description:
-      "In-depth explainers covering development topics, AI workflows, and system design. Structured storytelling with screen recordings, b-roll, and color grading for a polished final product.",
-    tools: ["Premiere Pro", "After Effects", "Canva"],
+      "In-depth educational video series covering AI workflows, system design, and development topics. Managed bulk production pipelines ensuring consistent brand voice, pacing, and visual identity across entire course series.",
+    tools: ["Premiere Pro", "After Effects", "ElevenLabs", "Canva"],
     type: "explainer",
   },
 ];
 
 export const videoEditingSkills = [
-  { label: "Adobe Premiere Pro", level: 90 },
-  { label: "After Effects", level: 80 },
-  { label: "CapCut", level: 95 },
-  { label: "Canva", level: 85 },
-  { label: "Color Grading", level: 75 },
-  { label: "Motion Graphics", level: 72 },
-  { label: "AI Voiceover (ElevenLabs)", level: 88 },
-  { label: "Short-Form Editing", level: 95 },
+  { label: "CapCut — Short-Form Editing", level: 95 },
+  { label: "HeyGen — AI Avatars & Lip Sync", level: 92 },
+  { label: "ElevenLabs — Voice Synthesis", level: 92 },
+  { label: "Prompt Engineering & Consistency", level: 90 },
+  { label: "Image Models — Nano / Banana / Midjourney / Imagine", level: 88 },
+  { label: "Video Models — Veo / Grok / Kling / Hailuo / Seedance", level: 87 },
+  { label: "Higgsfield — Cinematic Series Control", level: 88 },
+  { label: "n8n — Content Automation Pipelines", level: 85 },
+  { label: "Canva", level: 88 },
+  { label: "Adapts to New AI Tools Fast", level: 100 },
 ];
 
 export const videoEditingStats = [
-  { value: "3+", label: "Years Editing" },
-  { value: "50+", label: "Videos Produced" },
-  { value: "5+", label: "Active Channels" },
-  { value: "100%", label: "Client Satisfaction" },
+  { value: "1000", suffix: "+", label: "AI Videos Created", static: false },
+  { value: "250", suffix: "M+", label: "Total Views", static: false },
+  { value: "500K", suffix: "+", label: "Followers Grown", static: true },
+  { value: "2+", suffix: "", label: "Years Experience", static: true },
 ];
 
 export const contactDetails = {

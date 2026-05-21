@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/portfolio/Navbar";
 import { ScrollBackgroundFx } from "@/components/portfolio/ScrollBackgroundFx";
 import {
   VideoEditingContactSection,
@@ -6,7 +5,9 @@ import {
   VideoEditingHeroSection,
   VideoEditingSkillsSection,
   VideoEditingStatsBar,
+  VideoEditingSummarySection,
   VideoEditingWorksSection,
+  VideoNavbar,
 } from "@/components/portfolio/VideoEditingSections";
 import type { Metadata } from "next";
 
@@ -20,10 +21,11 @@ export default function VideoEditingPage() {
   return (
     <div className="text-slate-900 transition-colors dark:text-[#f0eeff]">
       <ScrollBackgroundFx />
-      <Navbar />
-      <main>
+      <VideoNavbar />
+      <main className="flex-1">
         <VideoEditingHeroSection />
         <VideoEditingStatsBar />
+        <VideoEditingSummarySection />
         <VideoEditingWorksSection />
         <VideoEditingSkillsSection />
         <VideoEditingContactSection />
