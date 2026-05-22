@@ -484,7 +484,7 @@ const workCategories = [
     description:
       "I have already worked with companies like Nimbuzz to produce their series. Consistent character design, cinematic pacing, and scene continuity across every episode. This is the work I enjoy most.",
     samples: [
-      { title: "Short Glimpse", category: "Series Sample", url: "https://drive.google.com/file/d/1oVFPM5gWyz7aDg2bIu4nK1HhGBaPT0So/view?usp=sharing" },
+      { title: "Short Glimpse", category: "Series Sample", url: "https://drive.google.com/file/d/1DJJb2vivyd7E_lcu6diIzyORHKmSb--U/view?usp=sharing" },
     ] as VideoSample[],
     modalNote: "I am the creator of this content but do not hold sole rights for what I produce for clients and companies. I can only share a short glimpse.",
   },
