@@ -39,6 +39,47 @@ export default function RootLayout({
     })();
   `;
 
+  // Some browser extensions inject <script bis_use> into <head> and stamp
+  // bis_skin_checked onto every div before React hydrates, which triggers
+  // hydration mismatches. Clean both up until hydration is done.
+  const extensionCleaner = `
+    (function () {
+      var attr = "bis_skin_checked";
+      function clean(root) {
+        if (root.nodeType !== 1) return;
+        if (root.tagName === "SCRIPT" && root.hasAttribute("bis_use")) {
+          root.remove();
+          return;
+        }
+        if (root.hasAttribute(attr)) root.removeAttribute(attr);
+        var injected = root.querySelectorAll("script[bis_use]");
+        for (var i = 0; i < injected.length; i++) injected[i].remove();
+        var marked = root.querySelectorAll("[" + attr + "]");
+        for (var j = 0; j < marked.length; j++) marked[j].removeAttribute(attr);
+      }
+      clean(document.documentElement);
+      var observer = new MutationObserver(function (mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          var m = mutations[i];
+          if (m.type === "attributes") {
+            clean(m.target);
+          } else {
+            for (var j = 0; j < m.addedNodes.length; j++) clean(m.addedNodes[j]);
+          }
+        }
+      });
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: [attr, "bis_use"],
+        childList: true,
+        subtree: true,
+      });
+      window.addEventListener("load", function () {
+        setTimeout(function () { observer.disconnect(); }, 3000);
+      });
+    })();
+  `;
+
   return (
     <html
       lang="en"
@@ -46,7 +87,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
+        <script dangerouslySetInnerHTML={{ __html: extensionCleaner }} suppressHydrationWarning />
+        <script dangerouslySetInnerHTML={{ __html: themeInitializer }} suppressHydrationWarning />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

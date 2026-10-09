@@ -5,18 +5,14 @@ import {
   contactDetails,
   education,
   experience,
-  interests,
-  profilePhotoUrl,
   projects,
   skills,
   stats,
 } from "./data";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Bot,
   Clapperboard,
-  Code2,
   Database,
   ExternalLink,
   FileUser,
@@ -310,6 +306,60 @@ function CyclingRole() {
 }
 
 /* ── Hero Section ── */
+export function HeroContent() {
+  return (
+    <>
+      {/* Left */}
+      <div className="flex flex-col">
+        <div className="status-badge fade-up mb-8 self-start">
+          <span className="status-dot" />
+          Available for opportunities
+        </div>
+
+        <h1 className="fade-up delay-1 font-heading text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.0] tracking-tight text-[var(--fg)]">
+          Hari Shankar
+          <br />
+          <span className="text-[var(--accent)]">Limbu</span>
+        </h1>
+
+        <CyclingRole />
+
+        <p className="fade-up delay-3 mt-6 max-w-[460px] text-[0.95rem] leading-[1.85] text-[var(--fg-muted)]">
+          I build{" "}
+          <strong className="font-semibold text-[var(--fg)]">
+            full-stack web apps, mobile applications
+          </strong>{" "}
+          and AI automation pipelines. Turning complex problems into clean,
+          scalable solutions that actually ship.
+        </p>
+
+        <div className="fade-up delay-4 mt-10 flex flex-wrap gap-3">
+          <a href="#projects" className="btn-primary px-7 py-3 text-[0.82rem]">
+            View Projects
+          </a>
+          <a href="#contact" className="btn-outline px-7 py-3 text-[0.82rem]">
+            Initialize Contact
+          </a>
+        </div>
+      </div>
+
+      {/* Right — animated terminal */}
+      <div className="fade-up delay-2 flex justify-center md:justify-end">
+        <AnimatedTerminal />
+      </div>
+    </>
+  );
+}
+
+export function ScrollHint() {
+  return (
+    <>
+      <span className="font-mono text-[0.6rem] uppercase tracking-widest text-[var(--fg-muted)]">scroll</span>
+      <span className="h-8 w-px bg-[var(--fg-muted)]" style={{ animation: "scrollFade 2s ease-in-out infinite" }} />
+    </>
+  );
+}
+
 export function HeroSection() {
   return (
     <section
@@ -317,239 +367,172 @@ export function HeroSection() {
       className="relative grid min-h-[100svh] w-full items-center"
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-16 px-5 pb-20 pt-14 md:grid-cols-2 md:px-8 lg:gap-20">
-        {/* Left */}
-        <div className="flex flex-col">
-          <div className="status-badge fade-up mb-8 self-start">
-            <span className="status-dot" />
-            Available for opportunities
-          </div>
-
-          <h1 className="fade-up delay-1 font-heading text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.0] tracking-tight text-[var(--fg)]">
-            Hari Shankar
-            <br />
-            <span className="text-[var(--accent)]">Limbu</span>
-          </h1>
-
-          <CyclingRole />
-
-          <p className="fade-up delay-3 mt-6 max-w-[460px] text-[0.95rem] leading-[1.85] text-[var(--fg-muted)]">
-            I build{" "}
-            <strong className="font-semibold text-[var(--fg)]">
-              full-stack web apps, mobile applications
-            </strong>{" "}
-            and AI automation pipelines. Turning complex problems into clean,
-            scalable solutions that actually ship.
-          </p>
-
-          <div className="fade-up delay-4 mt-10 flex flex-wrap gap-3">
-            <a href="#projects" className="btn-primary px-7 py-3 text-[0.82rem]">
-              View Projects
-            </a>
-            <a href="#contact" className="btn-outline px-7 py-3 text-[0.82rem]">
-              Initialize Contact
-            </a>
-          </div>
-        </div>
-
-        {/* Right — animated terminal */}
-        <div className="fade-up delay-2 flex justify-center md:justify-end">
-          <AnimatedTerminal />
-        </div>
+        <HeroContent />
       </div>
 
       {/* Scroll hint */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40">
-        <span className="font-mono text-[0.6rem] uppercase tracking-widest text-[var(--fg-muted)]">scroll</span>
-        <span className="h-8 w-px bg-[var(--fg-muted)]" style={{ animation: "scrollFade 2s ease-in-out infinite" }} />
+        <ScrollHint />
       </div>
     </section>
   );
 }
 
 /* ── Stats Bar ── */
+export function StatsContent() {
+  return (
+    <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-0 md:grid-cols-4">
+      {stats.map((stat, i) => (
+        <div
+          key={stat.label}
+          className={`flex flex-col items-center justify-center px-6 py-10 text-center
+            ${i % 2 === 0 && i < 2 ? "border-r border-[var(--border)] md:border-r-0" : ""}
+            ${i < 3 ? "md:border-r md:border-[var(--border)]" : ""}
+            ${i >= 2 ? "border-t border-[var(--border)] md:border-t-0" : ""}
+          `}
+        >
+          <p className="font-heading text-[2.4rem] font-bold leading-none text-[var(--accent)]">
+            {stat.value}
+          </p>
+          <p className="font-mono mt-2 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--fg-muted)]">
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function StatsBar() {
   return (
     <section className="border-y border-[var(--border)] bg-[var(--bg-card)]">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-0 md:grid-cols-4">
-        {stats.map((stat, i) => (
-          <div
-            key={stat.label}
-            className={`flex flex-col items-center justify-center px-6 py-10 text-center
-              ${i % 2 === 0 && i < 2 ? "border-r border-[var(--border)] md:border-r-0" : ""}
-              ${i < 3 ? "md:border-r md:border-[var(--border)]" : ""}
-              ${i >= 2 ? "border-t border-[var(--border)] md:border-t-0" : ""}
-            `}
-          >
-            <p className="font-heading text-[2.4rem] font-bold leading-none text-[var(--accent)]">
-              {stat.value}
-            </p>
-            <p className="font-mono mt-2 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--fg-muted)]">
-              {stat.label}
-            </p>
-          </div>
-        ))}
-      </div>
+      <StatsContent />
     </section>
   );
 }
 
 /* ── About Section ── */
+export function AboutContent() {
+  return (
+    <div className="max-w-3xl">
+      <div>
+        <p className="section-tag">/about me</p>
+        <h2 className="section-title">Who I am</h2>
+        <p className="copy mt-4">
+          I&apos;m <strong className="text-[var(--fg)]">Hari Shankar Limbu</strong> (you can call me{" "}
+          <strong className="text-[var(--fg)]">Ashok</strong>), an app and full-stack
+          developer based in Nepal. I love building things that are fast, functional, and a little bit smart.
+        </p>
+        <p className="copy">
+          My core focus is at the intersection of{" "}
+          <strong className="text-[var(--fg)]">mobile &amp; web development</strong> and{" "}
+          <strong className="text-[var(--fg)]">AI-driven automation</strong> — designing systems that don&apos;t
+          just work, but actually think.
+        </p>
+        <p className="copy">
+          When I&apos;m not shipping code, I&apos;m editing videos or experimenting with AI content pipelines.
+          I believe automation is the future and I want to build it.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function AboutSection() {
   return (
     <section id="about" className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
-      <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr]">
-        {/* Left card */}
-        <div className="card flex flex-col justify-between p-8">
-          <div>
-            <div className="mb-6 h-14 w-14 rounded-xl bg-[var(--accent-dim)] flex items-center justify-center border border-[var(--accent)]/20">
-              <Code2 size={26} style={{ color: "var(--accent)" }} />
-            </div>
-            <h3 className="font-heading text-2xl font-bold text-[var(--fg)] leading-tight">
-              Building with
-              <br />
-              <span className="text-[var(--accent)]">Purpose &amp; Precision.</span>
-            </h3>
-            <p className="copy mt-4 text-sm">
-              Every line of code is intentional — built to solve real problems and scale without friction.
-            </p>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {interests.map((item) => (
-              <span key={item} className="skill-pill">{item}</span>
-            ))}
-          </div>
-        </div>
-
-        {/* Right text */}
-        <div>
-          <p className="section-tag">/about me</p>
-          <h2 className="section-title">Who I am</h2>
-          <p className="copy mt-4">
-            I&apos;m <strong className="text-[var(--fg)]">Hari Shankar Limbu</strong>, an app and full-stack
-            developer based in Nepal. I love building things that are fast, functional, and a little bit smart.
-          </p>
-          <p className="copy">
-            My core focus is at the intersection of{" "}
-            <strong className="text-[var(--fg)]">mobile &amp; web development</strong> and{" "}
-            <strong className="text-[var(--fg)]">AI-driven automation</strong> — designing systems that don&apos;t
-            just work, but actually think.
-          </p>
-          <p className="copy">
-            When I&apos;m not shipping code, I&apos;m editing videos or experimenting with AI content pipelines.
-            I believe automation is the future and I want to build it.
-          </p>
-
-          <div className="mt-8 grid grid-cols-2 gap-6 border-t border-[var(--border)] pt-8">
-            {stats.slice(0, 2).map((stat) => (
-              <div key={stat.label}>
-                <p className="font-heading text-3xl font-bold text-[var(--accent)]">{stat.value}</p>
-                <p className="font-mono mt-1 text-[0.65rem] uppercase tracking-widest text-[var(--fg-muted)]">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6">
-            <div className="mb-3 flex items-center gap-2">
-              <Image
-                src={profilePhotoUrl}
-                alt="Hari Shankar Limbu"
-                width={44}
-                height={44}
-                className="rounded-full object-cover border-2 border-[var(--accent)]/30"
-              />
-              <div>
-                <p className="text-sm font-semibold text-[var(--fg)]">Hari Shankar Limbu</p>
-                <p className="font-mono text-[0.65rem] text-[var(--fg-muted)]">Lalitpur, Nepal</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AboutContent />
     </section>
   );
 }
 
 /* ── Experience / Journey Section ── */
-export function JourneySection() {
+export function JourneyContent() {
   return (
-    <section id="journey" className="border-t border-[var(--border)] bg-[var(--bg-card)]">
-      <div className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
-        <p className="section-tag">/journey</p>
-        <h2 className="section-title mb-14">Professional Experience</h2>
+    <>
+      <p className="section-tag">/journey</p>
+      <h2 className="section-title mb-14">Professional Experience</h2>
 
-        {/* Experience timeline */}
-        <div className="mb-16 space-y-0">
-          {experience.map((item, i) => (
-            <div key={`${item.company}-${i}`} className="relative flex gap-6 pb-10 last:pb-0">
-              {/* Line */}
-              {i < experience.length - 1 && (
-                <div className="absolute left-[7px] top-[20px] bottom-0 w-px bg-[var(--border)]" />
-              )}
-              {/* Dot */}
-              <div
-                className={`timeline-dot mt-1 shrink-0 ${i === 0 ? "active" : ""}`}
-              />
-              {/* Card */}
-              <div className="card flex-1 p-6 hover:-translate-y-0.5">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h3 className="font-heading text-lg font-semibold text-[var(--accent)]">
-                      {item.role}
-                    </h3>
-                    <p className="font-mono mt-0.5 text-sm font-medium text-[var(--fg)]">
-                      {item.company}
-                    </p>
-                  </div>
-                  <span className="font-mono shrink-0 rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[0.65rem] uppercase tracking-wider text-[var(--fg-muted)]">
-                    {item.period}
-                  </span>
+      {/* Experience timeline */}
+      <div className="mb-16 space-y-0">
+        {experience.map((item, i) => (
+          <div key={`${item.company}-${i}`} className="relative flex gap-6 pb-10 last:pb-0">
+            {/* Line */}
+            {i < experience.length - 1 && (
+              <div className="absolute left-[7px] top-[20px] bottom-0 w-px bg-[var(--border)]" />
+            )}
+            {/* Dot */}
+            <div
+              className={`timeline-dot mt-1 shrink-0 ${i === 0 ? "active" : ""}`}
+            />
+            {/* Card */}
+            <div className="card flex-1 p-6 hover:-translate-y-0.5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-heading text-lg font-semibold text-[var(--accent)]">
+                    {item.role}
+                  </h3>
+                  <p className="font-mono mt-0.5 text-sm font-medium text-[var(--fg)]">
+                    {item.company}
+                  </p>
+                  {item.url && (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono mt-0.5 inline-block text-xs text-[var(--fg-muted)] underline-offset-4 hover:text-[var(--accent)] hover:underline"
+                    >
+                      {item.url.replace("https://", "")}
+                    </a>
+                  )}
                 </div>
-                <p className="copy mt-3 text-sm">{item.details}</p>
+                <span className="font-mono shrink-0 rounded-md border border-[var(--border)] bg-[var(--bg)] px-3 py-1 text-[0.65rem] uppercase tracking-wider text-[var(--fg-muted)]">
+                  {item.period}
+                </span>
+              </div>
+              <p className="copy mt-3 text-sm">{item.details}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Education */}
+      <div>
+        <div>
+          <h3 className="font-heading mb-6 text-xl font-semibold text-[var(--fg)]">Education</h3>
+          {education.map((item) => (
+            <div key={item.school} className="relative flex gap-6">
+              <div className="timeline-dot mt-1 shrink-0" />
+              <div>
+                <span className="font-mono text-[0.65rem] uppercase tracking-widest text-[var(--accent)]">
+                  {item.period}
+                </span>
+                <h4 className="mt-1 font-semibold text-[var(--fg)]">{item.degree}</h4>
+                <p className="text-sm text-[var(--fg-muted)]">{item.school}</p>
+                <p className="font-mono mt-1 text-xs text-[var(--fg-muted)]">{item.details}</p>
               </div>
             </div>
           ))}
         </div>
+      </div>
+    </>
+  );
+}
 
-        {/* Education */}
-        <div className="grid gap-8 md:grid-cols-2">
-          <div>
-            <h3 className="font-heading mb-6 text-xl font-semibold text-[var(--fg)]">Education</h3>
-            {education.map((item) => (
-              <div key={item.school} className="relative flex gap-6">
-                <div className="timeline-dot mt-1 shrink-0" />
-                <div>
-                  <span className="font-mono text-[0.65rem] uppercase tracking-widest text-[var(--accent)]">
-                    {item.period}
-                  </span>
-                  <h4 className="mt-1 font-semibold text-[var(--fg)]">{item.degree}</h4>
-                  <p className="text-sm text-[var(--fg-muted)]">{item.school}</p>
-                  <p className="font-mono mt-1 text-xs text-[var(--fg-muted)]">{item.details}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Interests panel */}
-          <div>
-            <h3 className="font-heading mb-6 text-xl font-semibold text-[var(--fg)]">Interests</h3>
-            <div className="flex flex-wrap gap-2">
-              {interests.map((item) => (
-                <span key={item} className="skill-pill">{item}</span>
-              ))}
-            </div>
-          </div>
-        </div>
+export function JourneySection() {
+  return (
+    <section id="journey" className="border-t border-[var(--border)] bg-[var(--bg-card)]">
+      <div className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
+        <JourneyContent />
       </div>
     </section>
   );
 }
 
 /* ── Skills Section ── */
-export function SkillsSection() {
+export function SkillsContent() {
   return (
-    <section id="skills" className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
+    <>
       <p className="section-tag">/skills</p>
       <h2 className="section-title mb-12">Tools I work with</h2>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -570,228 +553,225 @@ export function SkillsSection() {
           );
         })}
       </div>
+    </>
+  );
+}
+
+export function SkillsSection() {
+  return (
+    <section id="skills" className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      <SkillsContent />
     </section>
   );
 }
 
 /* ── Projects Section ── */
+export function ProjectsContent() {
+  return (
+    <>
+      <p className="section-tag">/projects</p>
+      <h2 className="section-title mb-12">Featured Projects</h2>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <article key={project.title} className="card group flex h-full flex-col p-5 hover:-translate-y-1">
+            <span className="font-mono inline-block self-start rounded border border-[var(--accent)]/30 bg-[var(--accent-dim)] px-2.5 py-0.5 text-[0.62rem] uppercase tracking-wider text-[var(--accent)]">
+              {project.label}
+            </span>
+            <h3 className="font-heading mt-3 text-base font-bold leading-snug text-[var(--fg)]">
+              {project.title}
+            </h3>
+            <p className="copy mt-2 text-[0.8rem] leading-relaxed">{project.description}</p>
+            {project.highlights ? (
+              <ul className="mt-3 space-y-1.5">
+                {project.highlights.map((h) => (
+                  <li key={h} className="flex gap-2 text-[0.8rem] leading-relaxed text-[var(--fg-muted)]">
+                    <span className="mt-[0.5rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
+              {project.tech.map((t) => (
+                <span key={t} className="skill-pill">{t}</span>
+              ))}
+            </div>
+            {project.statusCta ? (
+              <div className="mt-4">
+                <span className="font-mono inline-block rounded border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[0.68rem] uppercase tracking-wider text-amber-400">
+                  {project.statusCta}
+                </span>
+              </div>
+            ) : project.projectUrl ? (
+              <div className="mt-4">
+                <a
+                  href={project.projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)] transition hover:opacity-75"
+                >
+                  View Project <ExternalLink size={13} />
+                </a>
+              </div>
+            ) : null}
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <a
+          href="https://github.com/ashoklimbu07"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline inline-flex items-center gap-2"
+        >
+          <GitHubIcon />
+          More on GitHub
+        </a>
+      </div>
+    </>
+  );
+}
+
 export function ProjectsSection() {
   return (
     <section id="projects" className="border-t border-[var(--border)] bg-[var(--bg-card)]">
       <div className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
-        <p className="section-tag">/projects</p>
-        <h2 className="section-title mb-12">Featured Projects</h2>
-        <div className="grid gap-5 lg:grid-cols-2">
-          {projects.map((project) => (
-            <article key={project.title} className="card group p-7 hover:-translate-y-1">
-              <span className="font-mono inline-block rounded border border-[var(--accent)]/30 bg-[var(--accent-dim)] px-3 py-1 text-[0.68rem] uppercase tracking-wider text-[var(--accent)]">
-                {project.label}
-              </span>
-              <h3 className="font-heading mt-4 text-xl font-bold text-[var(--fg)]">
-                {project.title}
-              </h3>
-              <p className="copy mt-3 text-sm">{project.description}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {project.tech.map((t) => (
-                  <span key={t} className="skill-pill">{t}</span>
-                ))}
-              </div>
-              <div className="mt-6">
-                {project.statusCta ? (
-                  <span className="font-mono inline-block rounded border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[0.68rem] uppercase tracking-wider text-amber-400">
-                    {project.statusCta}
-                  </span>
-                ) : (
-                  <a
-                    href={project.projectUrl ?? "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)] transition hover:opacity-75"
-                  >
-                    View Project <ExternalLink size={13} />
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-8 flex justify-center">
-          <a
-            href="https://github.com/ashoklimbu07"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline inline-flex items-center gap-2"
-          >
-            <GitHubIcon />
-            More on GitHub
-          </a>
-        </div>
+        <ProjectsContent />
       </div>
     </section>
   );
 }
 
 /* ── Contact Section ── */
+export function ContactContent() {
+  return (
+    <div className="grid md:grid-cols-[1fr_1.1fr]">
+      {/* Left */}
+      <div className="border-b border-[var(--border)] p-8 md:border-b-0 md:border-r">
+        <p className="section-tag">/contact</p>
+        <h2 className="font-heading mt-2 text-3xl font-bold leading-tight text-[var(--fg)]">
+          Let&apos;s build something
+          <br />
+          <span className="text-[var(--accent)] italic">exceptional.</span>
+        </h2>
+        <p className="copy mt-4 text-sm">
+          Available for freelance projects, full-time roles, and
+          collaborations. Let&apos;s talk about what we can build together.
+        </p>
+      </div>
+
+      {/* Right — contact details */}
+      <div className="p-8">
+        <div className="space-y-4">
+          <a
+            href={`mailto:${contactDetails.email}`}
+            className="flex items-center gap-3 text-sm text-[var(--fg-muted)] transition hover:text-[var(--accent)]"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--accent-dim)]">
+              <Mail size={15} style={{ color: "var(--accent)" }} />
+            </span>
+            {contactDetails.email}
+          </a>
+          <a
+            href={`https://wa.me/${contactDetails.phone.replace(/\D/g, "")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 text-sm text-[var(--fg-muted)] transition hover:text-[var(--accent)]"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--accent-dim)]">
+              <Phone size={15} style={{ color: "var(--accent)" }} />
+            </span>
+            <span>
+              <span className="font-mono block text-[0.68rem] uppercase tracking-widest text-[var(--fg-muted)]">
+                Contact &amp; WhatsApp
+              </span>
+              {contactDetails.phone}
+            </span>
+          </a>
+          <div className="flex items-center gap-3 text-sm text-[var(--fg-muted)]">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--accent-dim)]">
+              <MapPin size={15} style={{ color: "var(--accent)" }} />
+            </span>
+            Lalitpur, Nepal
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href="https://github.com/ashoklimbu07"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          >
+            <GitHubIcon />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/ashoklimbu"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          >
+            <LinkedInIcon />
+          </a>
+          <a
+            href={contactDetails.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline flex items-center gap-2 text-xs"
+          >
+            <FileUser size={14} />
+            Resume PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ContactSection() {
   return (
     <section id="contact" className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
       <div className="card overflow-hidden">
-        <div className="grid md:grid-cols-[1fr_1.1fr]">
-          {/* Left */}
-          <div className="border-b border-[var(--border)] p-8 md:border-b-0 md:border-r">
-            <p className="section-tag">/contact</p>
-            <h2 className="font-heading mt-2 text-3xl font-bold leading-tight text-[var(--fg)]">
-              Let&apos;s build something
-              <br />
-              <span className="text-[var(--accent)] italic">exceptional.</span>
-            </h2>
-            <p className="copy mt-4 text-sm">
-              Available for freelance projects, full-time roles, and
-              collaborations. Let&apos;s talk about what we can build together.
-            </p>
-
-            <div className="mt-8 space-y-4">
-              <a
-                href={`mailto:${contactDetails.email}`}
-                className="flex items-center gap-3 text-sm text-[var(--fg-muted)] transition hover:text-[var(--accent)]"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--accent-dim)]">
-                  <Mail size={15} style={{ color: "var(--accent)" }} />
-                </span>
-                {contactDetails.email}
-              </a>
-              <a
-                href={`tel:${contactDetails.phone.replace(/\D/g, "")}`}
-                className="flex items-center gap-3 text-sm text-[var(--fg-muted)] transition hover:text-[var(--accent)]"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--accent-dim)]">
-                  <Phone size={15} style={{ color: "var(--accent)" }} />
-                </span>
-                {contactDetails.phone}
-              </a>
-              <div className="flex items-center gap-3 text-sm text-[var(--fg-muted)]">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--accent-dim)]">
-                  <MapPin size={15} style={{ color: "var(--accent)" }} />
-                </span>
-                Lalitpur, Nepal
-              </div>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="https://github.com/ashoklimbu07"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-              >
-                <GitHubIcon />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/ashoklimbu"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--fg-muted)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-              >
-                <LinkedInIcon />
-              </a>
-              <a
-                href={contactDetails.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline flex items-center gap-2 text-xs"
-              >
-                <FileUser size={14} />
-                Resume PDF
-              </a>
-            </div>
-          </div>
-
-          {/* Right — quick-contact terminal form */}
-          <div className="p-8">
-            <div className="terminal">
-              <div className="terminal-bar">
-                <span className="terminal-dot" style={{ background: "#ff5f57" }} />
-                <span className="terminal-dot" style={{ background: "#febc2e" }} />
-                <span className="terminal-dot" style={{ background: "#28c840" }} />
-                <span className="terminal-title">CONTACT FORM</span>
-              </div>
-              <div className="terminal-body space-y-5">
-                <p className="terminal-comment"># Send me a message directly</p>
-                <div className="space-y-4">
-                  <div>
-                    <label className="font-mono block mb-1.5 text-[0.68rem] uppercase tracking-widest text-[#6272a4]">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className="w-full rounded-md border border-[#1e1e2e] bg-[#0a0a12] px-4 py-2.5 font-mono text-sm text-[#cdd6f4] placeholder-[#555570] outline-none focus:border-[var(--accent)] transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-mono block mb-1.5 text-[0.68rem] uppercase tracking-widest text-[#6272a4]">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="you@email.com"
-                      className="w-full rounded-md border border-[#1e1e2e] bg-[#0a0a12] px-4 py-2.5 font-mono text-sm text-[#cdd6f4] placeholder-[#555570] outline-none focus:border-[var(--accent)] transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-mono block mb-1.5 text-[0.68rem] uppercase tracking-widest text-[#6272a4]">
-                      Message
-                    </label>
-                    <textarea
-                      rows={4}
-                      placeholder="Tell me about your project..."
-                      className="w-full resize-none rounded-md border border-[#1e1e2e] bg-[#0a0a12] px-4 py-2.5 font-mono text-sm text-[#cdd6f4] placeholder-[#555570] outline-none focus:border-[var(--accent)] transition"
-                    />
-                  </div>
-                  <a
-                    href={`mailto:${contactDetails.email}`}
-                    className="btn-primary w-full justify-center font-mono text-xs uppercase tracking-widest"
-                  >
-                    Execute Contact
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ContactContent />
       </div>
     </section>
   );
 }
 
 /* ── Footer ── */
+export function FooterContent() {
+  return (
+    <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
+      <p className="font-mono text-xs text-[var(--fg-muted)]">
+        <span className="text-[var(--accent)]">HSL</span> · Hari Shankar Limbu · © 2026
+      </p>
+      <div className="flex items-center gap-4">
+        <Link
+          href="/video-editing"
+          className="font-mono text-xs text-[var(--fg-muted)] transition hover:text-[var(--accent)] uppercase tracking-wider"
+        >
+          Video Portfolio →
+        </Link>
+        <a
+          href="https://github.com/ashoklimbu07"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-xs text-[var(--fg-muted)] transition hover:text-[var(--accent)] uppercase tracking-wider"
+        >
+          GitHub →
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="border-t border-[var(--border)] px-5 py-8">
-      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
-        <p className="font-mono text-xs text-[var(--fg-muted)]">
-          <span className="text-[var(--accent)]">HSL</span> · Hari Shankar Limbu · © 2026
-        </p>
-        <div className="flex items-center gap-4">
-          <Link
-            href="/video-editing"
-            className="font-mono text-xs text-[var(--fg-muted)] transition hover:text-[var(--accent)] uppercase tracking-wider"
-          >
-            Video Portfolio →
-          </Link>
-          <a
-            href="https://github.com/ashoklimbu07"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-xs text-[var(--fg-muted)] transition hover:text-[var(--accent)] uppercase tracking-wider"
-          >
-            GitHub →
-          </a>
-        </div>
-      </div>
+      <FooterContent />
     </footer>
   );
 }

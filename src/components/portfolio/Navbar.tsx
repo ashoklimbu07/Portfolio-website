@@ -4,6 +4,7 @@ import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { navLinks } from "./data";
+import { ViewModeToggle } from "./ViewModeToggle";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,13 +72,15 @@ export function Navbar() {
 
             {/* Resume button */}
             <a
-              href="/HARI_SHANKAR_LIMBU_2026CV.pdf"
+              href="/HARI_SHANKAR_LIMBU_CV_2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary text-xs"
             >
               Resume
             </a>
+
+            <ViewModeToggle />
 
             {/* Theme toggle */}
             <button
@@ -91,6 +94,7 @@ export function Navbar() {
 
           {/* Mobile row */}
           <div className="flex items-center gap-2 md:hidden">
+            <ViewModeToggle />
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
@@ -145,7 +149,7 @@ export function Navbar() {
           </ul>
           <div className="mt-auto">
             <a
-              href="/HARI_SHANKAR_LIMBU_2026CV.pdf"
+              href="/HARI_SHANKAR_LIMBU_CV_2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary w-full justify-center text-sm"

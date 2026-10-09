@@ -80,7 +80,7 @@ export const videoEditingStats = [
 export const contactDetails = {
   email: "limashok21@gmail.com",
   phone: "+977 9816374005",
-  resumeUrl: "/HARI_SHANKAR_LIMBU_2026CV.pdf",
+  resumeUrl: "/HARI_SHANKAR_LIMBU_CV_2026.pdf",
 } as const;
 
 /** File must live at `public/images/profile/` and be referenced from site root. */
@@ -120,8 +120,8 @@ export const skills = [
   },
   {
     icon: "database",
-    title: "Database & Cloud",
-    items: ["PostgreSQL", "MongoDB",  "Supabase", "AWS", "Vercel" , " sqlite"],
+    title: "Database, Cloud & DevOps",
+    items: ["PostgreSQL", "MongoDB", "Supabase", "SQLite", "AWS", "Vercel", "Docker", "CI/CD Pipelines"],
   },
   {
     icon: "bot",
@@ -137,6 +137,18 @@ export const skills = [
 
 export const projects = [
   {
+    label: "AI Task Planner",
+    title: "UnTangler",
+    description:
+      "A Progressive Web App that helps students untangle complex tasks: an LLM breaks each task into small steps and schedules them into free time slots. Built as a consultant for Compass Decisions Science, Inc. (USA, remote).",
+    highlights: [
+      "LLM task breakdown with a custom algorithm that recommends suitable time slots",
+      "Google Tasks and Google Calendar integration with automated calendar writing",
+      "Benchmark and taxonomy modules that analyze student needs and recommend task steps",
+    ],
+    tech: ["PWA", "LLM", "Google Calendar API", "Google Tasks API"],
+  },
+  {
     label: "Content Automation",
     title: "BrollAi-Personal content creation Toolkit",
     description:
@@ -151,6 +163,41 @@ export const projects = [
       "A react native based medication reminder app for elderly people(Nepali Audience), to help them remember their medications and avoid missing them , also features medication reminder notifications and medication history tracking for caregivers and family members",
     tech: ["react native", "supabase", "sqlite", "typescript"],
     statusCta: "In active development",
+  },
+  {
+    label: "AI Chatbot",
+    title: "PayPal Support Agent",
+    description:
+      "A real-time RAG chat system built on an end-to-end custom knowledge base, answering PayPal support questions with live tools.",
+    highlights: [
+      "Custom knowledge base pipeline: web scraping, data cleaning, embeddings and vector database storage",
+      "Hybrid search combining semantic and lexical retrieval",
+      "MCP tools for currency conversion, fee calculation, status tracking and real-time policy scraping",
+    ],
+    tech: ["RAG", "MCP", "Hybrid Search", "Vector DB", "Web Scraping"],
+  },
+  {
+    label: "System Design",
+    title: "Facebook NewsFeed Clone",
+    description:
+      "A scalable newsfeed backend built on a pull model architecture and tuned for high-performance workloads.",
+    highlights: [
+      "Pull model feed generation with Kafka messaging",
+      "Docker containerization for Redis and backend services",
+      "PostgreSQL optimization validated with load testing",
+    ],
+    tech: ["Docker", "Kafka", "Redis", "PostgreSQL", "Load Testing"],
+  },
+  {
+    label: "Social Media Automation",
+    title: "CreatorHub",
+    description:
+      "Upload one video and publish it across all four major social media platforms from a single place, powered by each platform's official developer API.",
+    highlights: [
+      "One upload, four platforms: Facebook, TikTok, Instagram and YouTube",
+      "Direct integration with the platforms' developer APIs",
+    ],
+    tech: ["Facebook API", "TikTok API", "Instagram API", "YouTube API"],
   },
 ];
 
@@ -192,9 +239,15 @@ export const education = [
 
 export const experience = [
   {
+    role: "Software Engineer (Consultant)",
+    company: "Compass Decisions Science, Inc. · NJ, USA (Remote)",
+    period: "June 2026 - Present",
+    details: "Building an ADHD-friendly, voice-based PWA web app that helps high schoolers with ADHD in the USA manage and schedule their tasks and homework",
+  },
+  {
     role: "App Developer",
     company: "TEJ Center PVT.LTD",
-    period: "2026 - Present",
+    period: "Jan 2026 - June 2026",
     details: "Building medication reminder apps for elderly people(Nepali Audience), from scratch to production",
   },
   {
@@ -204,14 +257,9 @@ export const experience = [
     details: "Learn full stack development , api integration , database and system design , RAG , Prompt Engineering , scalability and deployment",
   },
   {
-    role: "Video Editor ",
-    company: "Self Employed",
-    period: "2023 - Present",
-    details: "Providing freelance video editing services to clients , also create content for my own accounts , managing several faceless tikok and facebook accounts",
-  },
-  {
     role: "Founder",
-    company: "360 Automation Agency",
+    company: "Kirati Creatives",
+    url: "https://kiraticreative.com",
     period: "2026 - Present",
     details: "Serving clients with high quality AI videos for their businesses and brands to engage with their audience",
   },
